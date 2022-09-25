@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AppImage = ({ alt, src, onExpand }) => {
+const AppImage = ({ alt, src }) => {
   const [hover, setHover] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [liked, setLiked] = useState(false);
@@ -33,7 +33,7 @@ const AppImage = ({ alt, src, onExpand }) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke={liked ? "none" : "white"}
-                className="w-10 h-10"
+                className="w-6 h-6"
               >
                 <path
                   strokeLinecap="round"
@@ -56,7 +56,6 @@ const AppImage = ({ alt, src, onExpand }) => {
               strokeWidth={1.5}
               stroke="white"
               className="w-6 h-6"
-              onClick={onExpand}
             >
               <path
                 strokeLinecap="round"
