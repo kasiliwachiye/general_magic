@@ -11,24 +11,22 @@ const AppImage = ({ alt, src, onExpand }) => {
     setHover(false);
   };
 
-  const divClasses = `container relative `;
-
   return (
     <>
       <div
-        className={hover ? divClasses : ""}
+        className="container relative m-2"
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
       >
-        <img src={src} alt={alt} className="w-full h-auto" />
+        <img src={src} alt={alt} className="w-full h-auto rounded-md" />
         {hover ? (
           <button className="absolute top-2 right-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              fill="none"
+              fill="white"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
-              stroke="currentColor"
+              stroke="white"
               className="w-6 h-6"
               onClick={onExpand}
             >

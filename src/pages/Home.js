@@ -16,6 +16,7 @@ const Home = () => {
       });
   }, []);
 
+
   return (
     <>
       <div className="navbar bg-base-100 p-12">
@@ -50,34 +51,54 @@ const Home = () => {
         </div>
       </div>
 
-      {/*<div className='container mx-auto px-4'>*/}
-      {/*  <div className="grid grid-cols-12 gap-4">*/}
-      {/*    <div className="col-span-4 bg-red-500">*/}
-      {/*      1*/}
-      {/*    </div>*/}
-      {/*    <div className="col-span-3 bg-green-400">*/}
-      {/*      2*/}
-      {/*    </div>*/}
-      {/*    <div className="col-span-5 bg-yellow-400">*/}
-      {/*      3*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
-
-      <div className="container mx-auto px-4">
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {items.map((item) => {
+      <div className='container mx-auto px-4'>
+       <div className="grid grid-cols-12 gap-4">
+         <div className="col-span-4">
+           {items.filter(item => item.imageWidth > 4500 && item.imageHeight === 4000).map((item) => {
             return (
               <AppImage
                 key={item.id}
-                src={item.largeImageURL}
+                src={item.largeImageURL}                
                 alt={item.title}
               />
             );
           })}
-        </div>
-      </div>
-      
+         </div>
+         <div className="col-span-3">
+         {items.filter(item => item.imageWidth < 4500 && item.imageHeight > 5000).map((item) => {
+            return (
+              <AppImage
+                key={item.id}
+                src={item.largeImageURL}                
+                alt={item.title}
+              />
+            );
+          })}
+         </div>
+         <div className="col-span-5">
+         {items.filter(item => item.imageWidth > 6000 && item.imageHeight > 4000).map((item) => {
+            return (
+              <AppImage
+                key={item.id}
+                src={item.largeImageURL}                
+                alt={item.title}
+              />
+            );
+          })}
+          <div className="grid grid-cols-2 gap-4">
+          {items.filter(item => item.imageWidth < 4500 && item.imageHeight < 4000).map((item) => {
+            return (
+              <AppImage
+                key={item.id}
+                src={item.largeImageURL}                
+                alt={item.title}
+              />
+            );
+          })}
+          </div>
+         </div>
+       </div>
+      </div>      
     </>
   );
 };
