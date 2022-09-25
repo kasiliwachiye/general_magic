@@ -1,33 +1,25 @@
 import React, { useEffect, useState } from "react";
-import {NavLink}  from "react-router-dom";
-import Picture from "../components/Picture";
+import { NavLink } from "react-router-dom";
+import AppImage from "../components/AppImage";
 
 const url = "https://pixabay.com/api/?key=26032813-5eca57a90774446a771ac3a81";
 
 const Home = () => {
-  const [pics, setPics] = useState([]);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     fetch(url)
-        .then(res => res.json())
-        .then(json => setPics(json.hits))
+      .then((res) => res.json())
+      .then((json) => {
+        const data = json.hits
+        setItems(data)
+      });
   }, []);
-
-  const handleLike = () => {
-    console.log('Pic liked')
-  }
-
-  const handleExpand = () => {
-    console.log('Pic expanded')
-  }
-
-  if (!pics) return null;
 
   return (
     <>
       <div className="navbar bg-base-100 p-12">
         <div className="navbar-start">
-          <h1 className="font-bold text-xl">Home</h1>
         </div>
         <div className="navbar-center">
           <div className="form-control">
@@ -39,7 +31,7 @@ const Home = () => {
           </div>
         </div>
         <div className="navbar-end">
-          <NavLink className="btn btn-ghost btn-circle" to='/liked'>
+          <NavLink className="btn btn-ghost btn-circle" to="/liked">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -72,13 +64,20 @@ const Home = () => {
       {/*  </div>*/}
       {/*</div>*/}
 
-      <div className='container mx-auto px-4'>
+      <div className="container mx-auto px-4">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {pics.map(pic => {
-            return <Picture key={pic.id} src={pic.largeImageURL} alt={pic.title} onLike={handleLike} onExpand={handleExpand} />
+          {items.map((item) => {
+            return (
+              <AppImage
+                key={item.id}
+                src={item.largeImageURL}
+                alt={item.title}
+              />
+            );
           })}
         </div>
       </div>
+      
     </>
   );
 };
