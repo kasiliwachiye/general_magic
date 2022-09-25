@@ -3,6 +3,7 @@ import { useState } from "react";
 const AppImage = ({ alt, src, onExpand }) => {
   const [hover, setHover] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [liked, setLiked] = useState(false);
 
   const handleMouseOver = () => {
     setHover(true);
@@ -19,7 +20,30 @@ const AppImage = ({ alt, src, onExpand }) => {
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
       >
-        <img src={src} alt={alt} className="w-full h-auto rounded-md" />
+        <div>
+          <img src={src} alt={alt} className="w-full h-auto rounded-md" />
+          {hover ? (
+            <button
+              className="absolute top-1/2 right-1/2"
+              onClick={() => setLiked(!liked)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill={liked ? "red" : "none"}
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke={liked ? "none" : "white"}
+                className="w-10 h-10"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                />
+              </svg>
+            </button>
+          ) : null}
+        </div>
         {hover ? (
           <button
             className="absolute top-2 right-2"
@@ -68,11 +92,34 @@ const AppImage = ({ alt, src, onExpand }) => {
                     </svg>
                   </button>
                   <div className="relative p-6 flex-auto">
-                    <img
-                      src={src}
-                      alt={alt}
-                      className="w-auto h-72 rounded-md"
-                    />
+                    <div>
+                      <img
+                        src={src}
+                        alt={alt}
+                        className="w-auto h-72 rounded-md"
+                      />
+                      {hover ? (
+                        <button
+                          className="absolute top-1/2 right-1/2"
+                          onClick={() => setLiked(!liked)}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill={liked ? "red" : "none"}
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke={liked ? "none" : "white"}
+                            className="w-10 h-10"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                            />
+                          </svg>
+                        </button>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               </div>
