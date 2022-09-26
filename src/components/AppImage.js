@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
-const AppImage = ({ alt, src }) => {
+const AppImage = ({ alt, src, onToggleLike }) => {
   const [hover, setHover] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [liked, setLiked] = useState(false);
+  const { isLiked } = useSelector((state) => state.likedChecker);
 
   const handleMouseOver = () => {
     setHover(true);
@@ -25,14 +26,14 @@ const AppImage = ({ alt, src }) => {
           {hover ? (
             <button
               className="absolute top-1/2 right-1/2"
-              onClick={() => setLiked(!liked)}
+              onClick={onToggleLike}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                fill={liked ? "red" : "none"}
+                fill={isLiked ? "red" : "none"}
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
-                stroke={liked ? "none" : "white"}
+                stroke={isLiked ? "none" : "white"}
                 className="w-6 h-6"
               >
                 <path
@@ -100,14 +101,14 @@ const AppImage = ({ alt, src }) => {
                       {hover ? (
                         <button
                           className="absolute top-1/2 right-1/2"
-                          onClick={() => setLiked(!liked)}
+                          onClick={onToggleLike}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            fill={liked ? "red" : "none"}
+                            fill={isLiked ? "red" : "none"}
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
-                            stroke={liked ? "none" : "white"}
+                            stroke={isLiked ? "none" : "white"}
                             className="w-10 h-10"
                           >
                             <path

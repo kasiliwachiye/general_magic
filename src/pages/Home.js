@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import AppImage from "../components/AppImage";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleLike } from "../redux/likedSlice";
 
 const url = "https://pixabay.com/api/?key=26032813-5eca57a90774446a771ac3a81";
 
@@ -25,6 +27,13 @@ const Home = () => {
       );
   }, []);
 
+  const dispatch = useDispatch();
+  const { isLiked } = useSelector((state) => state.likedChecker);
+
+  const handleLike = () => {
+    dispatch(toggleLike());
+  };
+
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
@@ -46,7 +55,7 @@ const Home = () => {
         </div>
         <div className="navbar-end indicator">
           <span className="indicator-item badge badge-secondary font-bold">
-            5
+            {isLiked ? items.length : 0}
           </span>
           <NavLink className="btn btn-ghost btn-circle" to="/liked">
             <svg
@@ -80,6 +89,7 @@ const Home = () => {
                     key={item.id}
                     src={item.largeImageURL}
                     alt={item.title}
+                    onToggleLike={() => handleLike()}
                   />
                 );
               })}
@@ -95,6 +105,7 @@ const Home = () => {
                     key={item.id}
                     src={item.largeImageURL}
                     alt={item.title}
+                    onToggleLike={() => handleLike()}
                   />
                 );
               })}
@@ -110,6 +121,7 @@ const Home = () => {
                     key={item.id}
                     src={item.largeImageURL}
                     alt={item.title}
+                    onToggleLike={() => handleLike()}
                   />
                 );
               })}
@@ -124,6 +136,7 @@ const Home = () => {
                       key={item.id}
                       src={item.largeImageURL}
                       alt={item.title}
+                      onToggleLike={() => handleLike()}
                     />
                   );
                 })}

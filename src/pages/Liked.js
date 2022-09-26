@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import AppImage from "../components/AppImage";
+import { toggleLike } from "../redux/likedSlice";
+
+const url = "https://pixabay.com/api/?key=26032813-5eca57a90774446a771ac3a81";
 
 const Liked = () => {
+  const [items, setItems] = useState([]);
+  const { isLiked } = useSelector((state) => state.likedChecker);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((json) => {
+        const data = json.hits;
+        setItems(data);
+      });
+  }, []);
+
+  const handleLike = () => {
+    dispatch(toggleLike());
+  };
+
   return (
     <>
       <div className="navbar bg-base-100 p-12">
@@ -31,18 +54,18 @@ const Liked = () => {
 
       <div className="container mx-auto px-4">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div>
-            <img src="https://picsum.photos/720/480" alt="" />
-          </div>
-          <div>
-            <img src="https://picsum.photos/720/480" alt="" />
-          </div>
-          <div>
-            <img src="https://picsum.photos/720/480" alt="" />
-          </div>
-          <div>
-            <img src="https://picsum.photos/720/480" alt="" />
-          </div>
+          {isLiked === true
+            ? items.map((item) => {
+                return (
+                  <AppImage
+                    key={item.id}
+                    src={item.largeImageURL}
+                    alt={item.title}
+                    onToggleLike={() => handleLike()}
+                  />
+                );
+              })
+            : null}
         </div>
       </div>
     </>
