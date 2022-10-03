@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import AppImage from "../components/AppImage";
-import { toggleLike } from "../redux/likedSlice";
 
 const url = "https://pixabay.com/api/?key=26032813-5eca57a90774446a771ac3a81";
 
 const Liked = () => {
   const [items, setItems] = useState([]);
-  const { isLiked } = useSelector((state) => state.likedChecker);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch(url)
@@ -21,9 +16,7 @@ const Liked = () => {
       });
   }, []);
 
-  const handleLike = () => {
-    dispatch(toggleLike());
-  };
+  const handleLike = () => {};
 
   return (
     <>
@@ -54,18 +47,16 @@ const Liked = () => {
 
       <div className="container mx-auto px-4">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {isLiked === true
-            ? items.map((item) => {
-                return (
-                  <AppImage
-                    key={item.id}
-                    src={item.largeImageURL}
-                    alt={item.title}
-                    onToggleLike={() => handleLike()}
-                  />
-                );
-              })
-            : null}
+          {items.map((item) => {
+            return (
+              <AppImage
+                key={item.id}
+                src={item.largeImageURL}
+                alt={item.title}
+                onToggleLike={() => handleLike()}
+              />
+            );
+          })}
         </div>
       </div>
     </>

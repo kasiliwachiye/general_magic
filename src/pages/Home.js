@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import AppImage from "../components/AppImage";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleLike } from "../redux/likedSlice";
 
 const url = "https://pixabay.com/api/?key=26032813-5eca57a90774446a771ac3a81";
 
@@ -27,11 +25,8 @@ const Home = () => {
       );
   }, []);
 
-  const dispatch = useDispatch();
-  const { isLiked } = useSelector((state) => state.likedChecker);
-
   const handleLike = () => {
-    dispatch(toggleLike());
+    console.log('liked')
   };
 
   if (error) {
@@ -55,7 +50,7 @@ const Home = () => {
         </div>
         <div className="navbar-end indicator">
           <span className="indicator-item badge badge-secondary font-bold">
-            {isLiked ? items.length : 0}
+            0
           </span>
           <NavLink className="btn btn-ghost btn-circle" to="/liked">
             <svg

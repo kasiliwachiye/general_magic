@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 const AppImage = ({ alt, src, onToggleLike }) => {
   const [hover, setHover] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { isLiked } = useSelector((state) => state.likedChecker);
 
   const handleMouseOver = () => {
     setHover(true);
@@ -30,10 +28,10 @@ const AppImage = ({ alt, src, onToggleLike }) => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                fill={isLiked ? "red" : "none"}
+                fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
-                stroke={isLiked ? "none" : "white"}
+                stroke="white"
                 className="w-6 h-6"
               >
                 <path
@@ -105,10 +103,10 @@ const AppImage = ({ alt, src, onToggleLike }) => {
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            fill={isLiked ? "red" : "none"}
+                            fill="none"
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
-                            stroke={isLiked ? "none" : "white"}
+                            stroke="white"
                             className="w-10 h-10"
                           >
                             <path
