@@ -25,9 +25,6 @@ const Home = () => {
       );
   }, []);
 
-  const handleLike = () => {
-    console.log('liked')
-  };
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -38,7 +35,6 @@ const Home = () => {
   return (
     <>
       <NavBar />
-
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-4">
@@ -52,7 +48,6 @@ const Home = () => {
                     key={item.id}
                     src={item.largeImageURL}
                     alt={item.title}
-                    onToggleLike={() => handleLike()}
                   />
                 );
               })}
@@ -68,7 +63,6 @@ const Home = () => {
                     key={item.id}
                     src={item.largeImageURL}
                     alt={item.title}
-                    onToggleLike={() => handleLike()}
                   />
                 );
               })}
@@ -84,7 +78,6 @@ const Home = () => {
                     key={item.id}
                     src={item.largeImageURL}
                     alt={item.title}
-                    onToggleLike={() => handleLike()}
                   />
                 );
               })}
@@ -99,7 +92,6 @@ const Home = () => {
                       key={item.id}
                       src={item.largeImageURL}
                       alt={item.title}
-                      onToggleLike={() => handleLike()}
                     />
                   );
                 })}

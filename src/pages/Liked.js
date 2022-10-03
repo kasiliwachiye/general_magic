@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useContext } from "react"; 
+import LikedContext from "../LikedContext";
 import { NavLink } from "react-router-dom";
 import AppImage from "../components/AppImage";
 
-const url = "https://pixabay.com/api/?key=26032813-5eca57a90774446a771ac3a81";
+// const url = "https://pixabay.com/api/?key=26032813-5eca57a90774446a771ac3a81";
 
 const Liked = () => {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((json) => {
-        const data = json.hits;
-        setItems(data);
-      });
-  }, []);
-
-  const handleLike = () => {};
+  const {liked} = useContext(LikedContext)
 
   return (
     <>
@@ -46,17 +36,67 @@ const Liked = () => {
       </div>
 
       <div className="container mx-auto px-4">
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {items.map((item) => {
-            return (
-              <AppImage
-                key={item.id}
-                src={item.largeImageURL}
-                alt={item.title}
-                onToggleLike={() => handleLike()}
-              />
-            );
-          })}
+        <div className="grid grid-cols-12 gap-4">
+          <div className="col-span-4">
+            {liked
+              .filter(
+                (item) => item.imageWidth > 4500 && item.imageHeight === 4000
+              )
+              .map((item) => {
+                return (
+                  <AppImage
+                    key={item.id}
+                    src={item.largeImageURL}
+                    alt={item.title}
+                  />
+                );
+              })}
+          </div>
+          <div className="col-span-3">
+            {liked
+              .filter(
+                (item) => item.imageWidth < 4500 && item.imageHeight > 5000
+              )
+              .map((item) => {
+                return (
+                  <AppImage
+                    key={item.id}
+                    src={item.largeImageURL}
+                    alt={item.title}
+                  />
+                );
+              })}
+          </div>
+          <div className="col-span-5">
+            {liked
+              .filter(
+                (item) => item.imageWidth > 6000 && item.imageHeight > 3500
+              )
+              .map((item) => {
+                return (
+                  <AppImage
+                    key={item.id}
+                    src={item.largeImageURL}
+                    alt={item.title}
+                  />
+                );
+              })}
+            <div className="grid grid-cols-2 gap-4">
+              {liked
+                .filter(
+                  (item) => item.imageWidth < 4500 && item.imageHeight < 4000
+                )
+                .map((item) => {
+                  return (
+                    <AppImage
+                      key={item.id}
+                      src={item.largeImageURL}
+                      alt={item.title}
+                    />
+                  );
+                })}
+            </div>
+          </div>
         </div>
       </div>
     </>

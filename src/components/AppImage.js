@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useContext } from "react"; 
+import LikedContext from "../LikedContext";
 
-const AppImage = ({ alt, src, onToggleLike }) => {
+const AppImage = ({ alt, src }) => {
   const [hover, setHover] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  const {addLike} = useContext(LikedContext)
 
   const handleMouseOver = () => {
     setHover(true);
@@ -24,7 +28,7 @@ const AppImage = ({ alt, src, onToggleLike }) => {
           {hover ? (
             <button
               className="absolute top-1/2 right-1/2"
-              onClick={onToggleLike}
+              onClick={() => addLike(src)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +103,7 @@ const AppImage = ({ alt, src, onToggleLike }) => {
                       {hover ? (
                         <button
                           className="absolute top-1/2 right-1/2"
-                          onClick={onToggleLike}
+                          onClick={() => addLike(src)}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"

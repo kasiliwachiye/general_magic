@@ -7,9 +7,9 @@ const LikedContext = createContext();
 export const LikedProvider = ({ children }) => {
   // step 6: add the liked state
   const [liked, setLiked] = useState([]);
-  const addLike = (id) => {
+  const addLike = (src) => {
     // add to previous state
-    setLiked((prevState) => [...prevState, { id }]);
+    setLiked((prevState) => [...prevState, { src }]);
   };
   return (
     <LikedContext.Provider value={{ liked, addLike }}>{children}</LikedContext.Provider>
