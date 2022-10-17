@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import LikedContext from "../LikedContext";
 import { NavLink } from "react-router-dom";
-import AppImage from "../components/AppImage";
-import { v4 as uuidv4 } from "uuid";
 
 // const url = "https://pixabay.com/api/?key=26032813-5eca57a90774446a771ac3a81";
 
@@ -39,13 +37,7 @@ const Liked = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-4 gap-4">
           {liked.map((pic) => {
-            return (
-              <AppImage
-                key={uuidv4()}
-                src={pic.src}
-                alt={`photo ${uuidv4()}`}
-              />
-            );
+            return <img key={pic.id} src={pic.src} alt={pic.previewURL} />;
           })}
         </div>
       </div>
