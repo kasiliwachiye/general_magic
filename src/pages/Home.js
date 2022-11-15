@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import AppImage from "../components/AppImage";
 import LikedContext from "../LikedContext";
 
 const url = "https://pixabay.com/api/?key=26032813-5eca57a90774446a771ac3a81";
@@ -9,7 +8,7 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [query, setQuery] = useState("");
 
-  const { liked } = useContext(LikedContext);
+  const { liked, setLiked } = useContext(LikedContext);
 
   useEffect(() => {
     fetch(url)
@@ -25,9 +24,14 @@ const Home = () => {
       );
   }, []);
 
+  const addLike = (item) => {
+    if (liked.includes(item)) return;
+    setLiked([...liked, item]);
+  };
+
   return (
     <>
-      <div className="navbar bg-base-100 p-12">
+      <div className="navbar bg-base-100 p-10">
         <div className="navbar-start"></div>
         <div className="navbar-center">
           <div className="form-control">
@@ -61,6 +65,7 @@ const Home = () => {
           </NavLink>
         </div>
       </div>
+
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-4">
@@ -69,14 +74,16 @@ const Home = () => {
                 item.tags.toLowerCase().includes(query.toLowerCase())
               )
               .filter(
-                (item) => item.imageWidth > 4500 && item.imageHeight === 4000
+                (item) => item.imageWidth > 4500 && item.imageHeight <= 4000
               )
               .map((item) => {
                 return (
-                  <AppImage
+                  <img
+                    className="my-4"
                     key={item.id}
                     src={item.largeImageURL}
                     alt={item.title}
+                    onClick={() => addLike(item)}
                   />
                 );
               })}
@@ -91,10 +98,12 @@ const Home = () => {
               )
               .map((item) => {
                 return (
-                  <AppImage
+                  <img
+                    className="my-4"
                     key={item.id}
                     src={item.largeImageURL}
                     alt={item.title}
+                    onClick={() => addLike(item)}
                   />
                 );
               })}
@@ -105,14 +114,16 @@ const Home = () => {
                 item.tags.toLowerCase().includes(query.toLowerCase())
               )
               .filter(
-                (item) => item.imageWidth > 6000 && item.imageHeight > 3500
+                (item) => item.imageWidth > 6000 && item.imageHeight > 4000
               )
               .map((item) => {
                 return (
-                  <AppImage
+                  <img
+                    className="my-4"
                     key={item.id}
                     src={item.largeImageURL}
                     alt={item.title}
+                    onClick={() => addLike(item)}
                   />
                 );
               })}
@@ -126,10 +137,12 @@ const Home = () => {
                 )
                 .map((item) => {
                   return (
-                    <AppImage
+                    <img
+                      className="my-4"
                       key={item.id}
                       src={item.largeImageURL}
                       alt={item.title}
+                      onClick={() => addLike(item)}
                     />
                   );
                 })}
